@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            background: url("{{ url_for('static', filename='images/background2.jpeg') }}") no-repeat center center fixed;
+            background-size: cover;
+            color: #333; /* Darker text color for readability */
+            padding: 20px;
+        }
+        h2 {
+            color: #333; /* Dark color for header */
+        }
+        ul { 
+            list-style: none; 
+            padding: 0; 
+            margin: 0; 
+        }
+        li { 
+            background: rgba(255, 255, 255, 0.8); /* Lighter semi-transparent background for contrast */
+            margin: 10px auto; 
+            padding: 15px; 
+            width: 350px; 
+            border-radius: 8px; 
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1); 
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        a { 
+            text-decoration: none; 
+            color: #007bff;
+        }
+        a:hover { 
+            text-decoration: underline; 
+        }
+        button { 
+            background-color: #dc3545; 
+            color: white; 
+            border: none; 
+            padding: 8px 15px; 
+            border-radius: 5px; 
+            cursor: pointer; 
+        }
+        button:hover { 
+            background-color: #c82333; 
+        }
+        .edit-button { 
+            background-color: #007bff;
+            margin-right: 10px;
+        }
+        .edit-button:hover { 
+            background-color: #0056b3;
+        }
+        .task-actions {
+            display: flex;
+            justify-content: space-between;
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Your Tasks</h2>
+    <ul>
+        {% for task in tasks %}
+            <li>
+                <span><strong>{{ task.title }}</strong> - {{ task.status }}</span>
+                <div class="task-actions">
+                    <!-- Fixed Edit Button Link -->
+                    <a href="{{ url_for('edit_task', task_id=task.id) }}">
+                        <button class="edit-button">Edit</button>
+                    </a>
+                    <!-- Delete Task Form -->
+                    <form action="{{ url_for('delete_task', task_id=task.id) }}" method="POST" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    
+    <!-- Add Task Button -->
+    <a href="{{ url_for('add_task') }}">
+        <button>Add New Task</button>
+    </a>
+</body>
+</html>
