@@ -1,5 +1,5 @@
 Project Name:
-Flask To-Do List 
+ To-Do List 
 
 Description:
 The Flask To-Do List Web Application is a simple web-based tool that allows users to register, log in, and manage a to-do list. Users can create, edit, and delete tasks, with each task having a title, category, priority, status, and due date. The app ensures that each user's tasks are stored in a secure and personal database, providing a convenient way to stay organized and track progress.
