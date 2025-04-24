@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            background: url("{{ url_for('static', filename='images/background2.jpeg') }}") no-repeat center center fixed;
+            background-size: cover;
+            color: #333; /* Darker text color for readability */
+            padding: 20px;
+        }
+        h2 {
+            color: #333; /* Dark color for header */
+        }
+        form { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+        }
+        input, select, button {
+            margin: 10px;
+            padding: 10px;
+            width: 250px;
+            font-size: 16px;
+        }
+        button { 
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover { 
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h2>Edit Task</h2>
+    
+    <form method="POST">
+        <input type="text" name="title" value="{{ task.title }}" required placeholder="Task Title">
+        <input type="text" name="category" value="{{ task.category }}" required placeholder="Category">
+        <select name="priority">
+            <option value="Low" {% if task.priority == 'Low' %}selected{% endif %}>Low</option>
+            <option value="Medium" {% if task.priority == 'Medium' %}selected{% endif %}>Medium</option>
+            <option value="High" {% if task.priority == 'High' %}selected{% endif %}>High</option>
+        </select>
+        <select name="status">
+            <option value="Pending" {% if task.status == 'Pending' %}selected{% endif %}>Pending</option>
+            <option value="In Progress" {% if task.status == 'In Progress' %}selected{% endif %}>In Progress</option>
+            <option value="Completed" {% if task.status == 'Completed' %}selected{% endif %}>Completed</option>
+        </select>
+        <button type="submit">Update Task</button>
+    </form>
+    
+    <a href="{{ url_for('dashboard') }}">
+        <button>Back to Dashboard</button>
+    </a>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Task</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: url("{{ url_for('static', filename='images/background3.jpeg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Keeps the background fixed when scrolling */
+        }
+        form {
+            background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            padding: 20px;
+            width: 300px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        input, select, button {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <h2>Add Task</h2>
+    <form action="/add_task" method="POST">
+        <label for="title">Task Title:</label>
+        <input type="text" name="title" required>
+
+        <label for="category">Category:</label>
+        <input type="text" name="category" required>
+
+        <label for="priority">Priority:</label>
+        <select name="priority" required>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+        </select>
+
+        <!-- New Due Date field -->
+        <label for="due_date">Due Date:</label>
+        <input type="date" name="due_date" required>
+
+        <button type="submit">Add Task</button>
+    </form>
+    <p><a href="/dashboard">Back to Dashboard</a></p>
+</body>
+</html>

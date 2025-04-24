@@ -1,0 +1,79 @@
+<DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-4">
+    <h2 class="text-center">To-Do List</h2>
+
+    <!-- Add Task Form -->
+    <form action="/add" method="post" class="mb-3">
+        <div class="row">
+            <div class="col-md-4">
+                <input type="text" name="task" class="form-control" placeholder="New Task" required>
+            </div>
+            <div class="col-md-3">
+                <select name="priority" class="form-control">
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="category" class="form-control" placeholder="Category">
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Add</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Sorting Form -->
+    <form action="/sort" method="post" class="mb-3">
+        <label for="sort_by">Sort by:</label>
+        <select name="sort_by" class="form-control d-inline w-25">
+            <option value="priority">Priority</option>
+            <option value="category">Category</option>
+            <option value="status">Status</option>
+        </select>
+        <button type="submit" class="btn btn-secondary">Sort</button>
+    </form>
+
+    <!-- Task List Table -->
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Priority</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.task }}</td>
+                <td>{{ task.priority }}</td>
+                <td>{{ task.category }}</td>
+                <td>
+                    <form action="/update/{{ task.id }}" method="post">
+                        <select name="status" class="form-control" onchange="this.form.submit()">
+                            <option value="Pending" {% if task.status == 'Pending' %}selected{% endif %}>Pending</option>
+                            <option value="In Progress" {% if task.status == 'In Progress' %}selected{% endif %}>In Progress</option>
+                            <option value="Completed" {% if task.status == 'Completed' %}selected{% endif %}>Completed</option>
+                        </select>
+                    </form>
+                </td>
+                <td>
+                    <a href="/delete/{{ task.id }}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

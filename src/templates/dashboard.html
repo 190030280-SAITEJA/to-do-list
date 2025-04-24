@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            background: url("{{ url_for('static', filename='images/background2.jpeg') }}") no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        ul { 
+            list-style: none; 
+            padding: 0; 
+            margin: 0; 
+        }
+        li { 
+            background: rgba(255, 255, 255, 0.8); 
+            margin: 10px auto; 
+            padding: 15px; 
+            width: 350px; 
+            border-radius: 8px; 
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1); 
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .overdue {
+            border: 2px solid red;
+            color: red;
+        }
+        a { 
+            text-decoration: none; 
+            color: #007bff;
+        }
+        a:hover { 
+            text-decoration: underline; 
+        }
+        button { 
+            background-color: #dc3545; 
+            color: white; 
+            border: none; 
+            padding: 8px 15px; 
+            border-radius: 5px; 
+            cursor: pointer; 
+        }
+        button:hover { 
+            background-color: #c82333; 
+        }
+        .edit-button { 
+            background-color: #007bff;
+            margin-right: 10px;
+        }
+        .edit-button:hover { 
+            background-color: #0056b3;
+        }
+        .toggle-button {
+            background-color: #28a745;
+        }
+        .toggle-button:hover {
+            background-color: #218838;
+        }
+        .task-actions {
+            display: flex;
+            gap: 5px;
+        }
+        .filter-form {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Your Tasks</h2>
+
+    <!-- Filter dropdown -->
+    <form class="filter-form" method="GET" action="{{ url_for('dashboard') }}">
+        <label for="status">Filter by status:</label>
+        <select name="status" onchange="this.form.submit()">
+            <option value="All" {% if filter_status == 'All' %}selected{% endif %}>All</option>
+            <option value="Pending" {% if filter_status == 'Pending' %}selected{% endif %}>Pending</option>
+            <option value="Completed" {% if filter_status == 'Completed' %}selected{% endif %}>Completed</option>
+        </select>
+    </form>
+
+    <ul>
+        {% for task in tasks %}
+            <li class="{% if task.is_overdue and task.status != 'Completed' %}overdue{% endif %}">
+                <div>
+                    <strong>{{ task.title }}</strong> - {{ task.status }}
+                    {% if task.due_date %}
+                        <br><small>Due: {{ task.due_date }}</small>
+                    {% endif %}
+                </div>
+                <div class="task-actions">
+                    <!-- Toggle Status Button -->
+                    <form action="{{ url_for('toggle_status', task_id=task.id) }}" method="POST">
+                        <button class="toggle-button" type="submit">
+                            {% if task.status == 'Completed' %}Undo{% else %}Complete{% endif %}
+                        </button>
+                    </form>
+
+                    <!-- Edit Task -->
+                    <a href="{{ url_for('edit_task', task_id=task.id) }}">
+                        <button class="edit-button">Edit</button>
+                    </a>
+
+                    <!-- Delete Task -->
+                    <form action="{{ url_for('delete_task', task_id=task.id) }}" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    
+    <!-- Add Task Button -->
+    <a href="{{ url_for('add_task') }}">
+        <button style="margin-top: 20px;">Add New Task</button>
+    </a>
+</body>
+</html>
