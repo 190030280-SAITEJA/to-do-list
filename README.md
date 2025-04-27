@@ -1,6 +1,6 @@
 Project Name: SmartTask - A Personal Task Manager
 
-Description:SmartTask is a web-based to-do list application built with Flask that allows users to efficiently manage their daily tasks. It features user authentication (sign up, login, logout), task creation with categories and priorities, due date tracking, and task status toggling (Pending/Completed). Each user sees only their own tasks, ensuring a personalized experience.
+Description:SmartTask is a web-based to-do list application built with Flask that allows users to efficiently manage their daily tasks. It features user authentication (sign up, login, logout), task creation with categories and priorities, due date tracking, and task status  (Pending/Completed). Each user sees only their own tasks, ensuring a personalized experience.
 
 Purpose : 
 
