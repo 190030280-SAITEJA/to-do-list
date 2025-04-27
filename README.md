@@ -8,7 +8,7 @@ Stay organized by categorizing and prioritizing tasks.
 
 Manage their time better through due date reminders and overdue indicators.
 
-Keep track of progress with the ability to toggle task completion status.
+Keep track of progress with the ability to task completion status.
 
 It serves as both a productivity tool and a learning project for understanding full-stack web development.
 
