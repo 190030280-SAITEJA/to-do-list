@@ -56,3 +56,5 @@ Or just download the ZIP file from GitHub and extract it.
 
 Visit in your browser:
 Open http://127.0.0.1:5000 in your browser to start using the app.
+
+video recording : https://vimeo.com/1079034119?share=copy
